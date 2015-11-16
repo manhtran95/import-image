@@ -30,11 +30,9 @@ public class GridViewAdapter extends ArrayAdapter {
         ViewHolder holder = null;
 
         if (row == null) {
-            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            row = inflater.inflate(layoutResourceId, parent, false);
+            row = inflateView(parent);
             holder = new ViewHolder();
-            holder.imageTitle = (TextView) row.findViewById(R.id.text);
-            holder.image = (ImageView) row.findViewById(R.id.image);
+            setViewForHolder(row, holder);
             row.setTag(holder);
         } else {
             holder = (ViewHolder) row.getTag();
@@ -42,12 +40,30 @@ public class GridViewAdapter extends ArrayAdapter {
 
         // pass data to holder
         ImageItem item = (ImageItem) data.get(position);
+        setTitleForHolder(holder, item);
+        setImageForHolder(holder, item);
+        return row;
+    }
+
+    private void setTitleForHolder(ViewHolder holder, ImageItem item) {
         holder.imageTitle.setText(item.getTitle());
-        // scaled-down loading
+    }
+
+    private void setImageForHolder(ViewHolder holder, ImageItem item) {
         String imageDecodableString = item.getImageDecodableString();
         ScaledDownLoading scaledDownLoading = new ScaledDownLoading();
         Bitmap bitmap = scaledDownLoading.decodeSampledBitmapFromFile(imageDecodableString, 100, 100);
         holder.image.setImageBitmap(bitmap);
+    }
+
+    private void setViewForHolder(View row, ViewHolder holder) {
+        holder.imageTitle = (TextView) row.findViewById(R.id.text);
+        holder.image = (ImageView) row.findViewById(R.id.image);
+    }
+
+    private View inflateView(ViewGroup parent) {
+        View row;LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        row = inflater.inflate(layoutResourceId, parent, false);
         return row;
     }
 

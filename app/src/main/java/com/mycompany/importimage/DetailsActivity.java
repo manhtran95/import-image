@@ -16,14 +16,26 @@ public class DetailsActivity extends AppCompatActivity {
 
         String title = getIntent().getStringExtra("title");
         String imageDecodableString = getIntent().getStringExtra("imageDecodableString");
-        // scaled-down loading
-        ScaledDownLoading scaledDownLoading = new ScaledDownLoading();
-        Bitmap bitmap = scaledDownLoading.decodeSampledBitmapFromFile(imageDecodableString, 250, 250);
+        Bitmap bitmap = getBitmapFromFile(imageDecodableString);
 
-        TextView titleTextView = (TextView) findViewById(R.id.title);
-        titleTextView.setText(title);
+        setViewTitle(title);
+        setViewImage(bitmap);
+    }
+
+    private void setViewImage(Bitmap bitmap) {
         ImageView imageView = (ImageView) findViewById(R.id.image);
         imageView.setImageBitmap(bitmap);
+    }
+
+    private void setViewTitle(String title) {
+        TextView titleTextView = (TextView) findViewById(R.id.title);
+        titleTextView.setText(title);
+    }
+
+    // scaled-down loading
+    private Bitmap getBitmapFromFile(String imageDecodableString) {
+        ScaledDownLoading scaledDownLoading = new ScaledDownLoading();
+        return scaledDownLoading.decodeSampledBitmapFromFile(imageDecodableString, 250, 250);
     }
 
 }

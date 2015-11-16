@@ -27,10 +27,16 @@ public class LogInActivity extends AppCompatActivity {
 
     // set some layout items' attribute
     private void setLayoutItems() {
-        // set background for password
+        setBackgroundForPassword();
+        setColorForCursor();
+    }
+
+    private void setBackgroundForPassword() {
         password = (EditText) findViewById(R.id.txtPassword);
         password.setBackgroundResource(R.drawable.edit_text_style);
-        // set color for cursor
+    }
+
+    private void setColorForCursor() {
         Field f = null;
         try {
             f = TextView.class.getDeclaredField("mCursorDrawableRes");
