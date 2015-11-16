@@ -7,9 +7,9 @@
 
     <ImageView
         android:id="@+id/image"
-        android:background="@color/colorPrimary"
         android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"/>
 
     <TextView
         android:id="@+id/text"
